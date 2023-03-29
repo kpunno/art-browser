@@ -5,6 +5,7 @@ import { useState } from 'react'
 import { useAtom } from 'jotai'
 import { searchHistoryAtom } from '@/store'
 import { addToHistory } from '@/lib/userData'
+import { removeToken } from '@/lib/authenticate'
 
 export default function MainNav() {
   const router = useRouter();
@@ -16,6 +17,11 @@ export default function MainNav() {
     e.preventDefault();
     setSearchHistory(await addToHistory(`title=true&q=${searchData}`));
     router.push(`/artwork?title=true&q=${searchData}`);
+  }
+
+  function logout() {
+    setIsExpanded(false);
+
   }
 
   return (
