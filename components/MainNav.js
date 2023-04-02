@@ -27,15 +27,15 @@ export default function MainNav() {
 
   return (
     <>
-      <Navbar expand="lg" bg="dark" className='fixed-top navbar navbar-dark'>
+      <Navbar expand="lg" bg="dark" className='fixed-top navbar navbar-dark' expanded={isExpanded}>
 
         <Container fluid>
           <Navbar.Brand>Kristjan Punno</Navbar.Brand>
-          <Navbar.Toggle aria-controls="navbar-collapse" onClick={e => setIsExpanded(false)} />
-          <Navbar.Collapse expanded={isExpanded.toString()} id="navbar-collapse">
+          <Navbar.Toggle aria-controls="navbar-collapse" onClick={e => setIsExpanded(!isExpanded)} />
+          <Navbar.Collapse id="navbar-collapse">
           <Nav className="me-auto">
-            <Link href='/' passHref legacyBehavior><Nav.Link active={router.pathname === "/"} >Home</Nav.Link></Link>
-            {isAuthenticated() && <Link href='/search' passHref legacyBehavior><Nav.Link active={router.pathname === "/search"}>Advanced Search</Nav.Link></Link>}
+            <Link href='/' passHref legacyBehavior><Nav.Link active={router.pathname === "/"} onClick={e => setIsExpanded(false)}>Home</Nav.Link></Link>
+            {isAuthenticated() && <Link href='/search' passHref legacyBehavior><Nav.Link active={router.pathname === "/search"} onClick={e => setIsExpanded(false)}>Advanced Search</Nav.Link></Link>}
           </Nav>
           {isAuthenticated() ? <>
             <Form onSubmit={handleSubmit} className="d-flex">
@@ -51,8 +51,8 @@ export default function MainNav() {
             <Nav>
               &nbsp;&nbsp;
               <NavDropdown title={readToken().userName} id="basic-nav-dropdown" align="end">
-                <NavDropdown.Item><Link href='/favourites' passHref legacyBehavior><Nav.Link style={{color: "black"}} active={router.pathname === "/favourites"}>Favourites</Nav.Link></Link></NavDropdown.Item>
-                <NavDropdown.Item><Link href='/history' passHref legacyBehavior><Nav.Link style={{color: "black"}} active={router.pathname === "/history"}>History</Nav.Link></Link></NavDropdown.Item>
+                <NavDropdown.Item><Link href='/favourites' passHref legacyBehavior><Nav.Link style={{color: "black"}} active={router.pathname === "/favourites"} onClick={e => setIsExpanded(false)}>Favourites</Nav.Link></Link></NavDropdown.Item>
+                <NavDropdown.Item><Link href='/history' passHref legacyBehavior><Nav.Link style={{color: "black"}} active={router.pathname === "/history"} onClick={e => setIsExpanded(false)}>History</Nav.Link></Link></NavDropdown.Item>
                 <NavDropdown.Item onClick={logout}><Link href='/login' passHref legacyBehavior><Nav.Link style={{color: "black"}}>Log out</Nav.Link></Link></NavDropdown.Item>
               </NavDropdown>
             </Nav>
